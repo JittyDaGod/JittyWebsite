@@ -1,137 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>JittyDaGod's Web</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
 
 <style>
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "DM Sans", sans-serif;
 }
 
 body {
-    min-height: 100vh;
-    display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #120008 0%, #07000a 50%, #000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* ===================== BACKGROUND ===================== */
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.8);
+  animation: twinkle 4s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+  0%,100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.8); }
+}
+
+.nebula {
+  position: fixed;
+  width: 900px;
+  height: 900px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,0,60,0.25), transparent 60%);
+  filter: blur(90px);
+  z-index: 0;
+}
+
+/* ===================== LAYOUT ===================== */
+.wrapper {
+  z-index: 2;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+/* ===================== PANEL ===================== */
+.panel {
+  background: rgba(255,0,50,0.08);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(18px);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 0 30px rgba(255,0,60,0.15);
+  transition: 0.3s;
+}
+
+.panel:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 0 50px rgba(255,0,60,0.35);
+}
+
+/* ===================== PROFILE ===================== */
+.profile {
+  width: 300px;
+  text-align: center;
+}
+
+.avatar-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,0,60,0.7);
+}
+
+/* hover popup ABOVE */
+.popup {
+  position: absolute;
+  bottom: 115%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 220px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 12px;
+  background: rgba(0,0,0,0.85);
+  border: 1px solid rgba(255,0,60,0.4);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s;
+}
+
+.avatar-wrap:hover .popup {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-6px);
+}
+
+.name {
+  margin-top: 10px;
+  font-family: "Syne";
+  font-weight: 800;
+}
+
+.username {
+  opacity: 0.6;
+  font-size: 13px;
+}
+
+.status {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 13px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* ===================== SOCIALS ===================== */
+.socials {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.socials a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: rgba(255,0,60,0.1);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: 0.25s;
+}
+
+.socials a:hover {
+  transform: scale(1.04);
+  background: rgba(255,0,60,0.25);
+}
+
+.socials img {
+  width: 18px;
+  height: 18px;
+  filter: invert(1);
+}
+
+/* ===================== CURSOR TRAIL ===================== */
+.trail-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: radial-gradient(circle, white, rgba(255,0,60,0.7));
+  box-shadow: 0 0 12px red, 0 0 20px white;
+  transform: translate(-50%, -50%);
+  animation: fadeOut 0.8s linear forwards;
+  z-index: 9999;
+}
+
+@keyframes fadeOut {
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .wrapper {
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #ff6b00, #ffb366);
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    overflow: hidden;
-    gap: 20px;
-}
-
-/* NAME ABOVE BOX */
-.site-name {
-    color: white;
-    font-size: 3rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
-}
-
-/* CENTER BOX */
-.container {
-    background: linear-gradient(135deg, #003d1a, #001a0d);
-    padding: 60px 80px;
-    border-radius: 20px;
-    text-align: center;
-    box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 25px;
-}
-
-/* BUTTONS */
-.button-container {
-    display: flex;
-    gap: 20px;
-}
-
-.btn {
-    padding: 15px 30px;
-    font-size: 1.1rem;
-    font-weight: bold;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.3s ease;
-    text-decoration: none;
-}
-
-.youtube {
-    background: #ff0000;
-}
-
-.youtube:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #ff0000;
-}
-
-.discord {
-    background: #5865F2;
-}
-
-.discord:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #5865F2;
-}
-
-/* mouse trail */
-.trail {
-    position: fixed;
-    width: 10px;
-    height: 10px;
-    background: limegreen;
-    border-radius: 50%;
-    pointer-events: none;
-    box-shadow: 0 0 10px limegreen;
-    animation: fade 0.6s linear forwards;
-}
-
-@keyframes fade {
-    to {
-        transform: scale(0);
-        opacity: 0;
-    }
+  }
 }
 </style>
 </head>
 
 <body>
 
-<div class="site-name">JittyDaGod</div>
+<div id="stars"></div>
+<div class="nebula"></div>
 
-<div class="container">
-    <div class="button-container">
-        <a class="btn youtube" href="https://www.youtube.com/@JittyDaGod52" target="_blank">
-            🎥 YouTube
-        </a>
+<div class="wrapper">
 
-        <a class="btn discord" href="https://discord.com" target="_blank">
-            💬 Discord
-        </a>
+  <!-- PROFILE -->
+  <div class="panel profile">
+
+    <div class="avatar-wrap">
+      <img id="avatar" class="avatar" />
+      <div class="popup" id="popup">Loading activity...</div>
     </div>
+
+    <div class="name" id="name">Loading...</div>
+    <div class="username" id="username"></div>
+
+    <div class="status">
+      <div class="dot" id="dot"></div>
+      <span id="statusText">Checking...</span>
+    </div>
+  </div>
+
+  <!-- SOCIALS -->
+  <div class="panel socials">
+
+    <a href="https://youtube.com" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg">
+      YouTube
+    </a>
+
+    <a href="https://steamcommunity.com" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/steam.svg">
+      Steam
+    </a>
+
+    <a href="https://www.roblox.com" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/roblox.svg">
+      Roblox
+    </a>
+
+    <a href="https://discord.gg" target="_blank">
+      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg">
+      Discord
+    </a>
+
+  </div>
+
 </div>
 
 <script>
-document.addEventListener("mousemove", function(e) {
-    const dot = document.createElement("div");
-    dot.className = "trail";
+/* ===================== STARS ===================== */
+const stars = document.getElementById("stars");
 
-    dot.style.left = e.clientX + "px";
-    dot.style.top = e.clientY + "px";
+for (let i = 0; i < 140; i++) {
+  const s = document.createElement("div");
+  s.className = "star";
+  s.style.top = Math.random()*100 + "%";
+  s.style.left = Math.random()*100 + "%";
+  s.style.animationDuration = (2 + Math.random()*4) + "s";
+  stars.appendChild(s);
+}
 
-    document.body.appendChild(dot);
-
-    setTimeout(() => {
-        dot.remove();
-    }, 600);
+/* ===================== CURSOR TRAIL ===================== */
+document.addEventListener("mousemove", (e) => {
+  const d = document.createElement("div");
+  d.className = "trail-dot";
+  d.style.left = e.clientX + "px";
+  d.style.top = e.clientY + "px";
+  document.body.appendChild(d);
+  setTimeout(() => d.remove(), 800);
 });
+
+/* ===================== DISCORD ===================== */
+const ID = "1138567381887746159";
+
+function color(s){
+  return {
+    online:"#43b581",
+    idle:"#faa61a",
+    dnd:"#f04747",
+    offline:"#747f8d"
+  }[s] || "#747f8d";
+}
+
+function formatActivity(a){
+  if (!a) return "No activity";
+
+  switch(a.type){
+    case 0: return `🎮 Playing ${a.name}`;
+    case 1: return `🔴 Streaming ${a.name}`;
+    case 2: return `🎧 Listening to ${a.name}`;
+    case 3: return `📺 Watching ${a.name}`;
+    case 4: return a.state || "✨ Custom Status";
+    default: return a.name;
+  }
+}
+
+async function load(){
+  try {
+    const res = await fetch(`https://api.lanyard.rest/v1/users/${ID}`);
+    const json = await res.json();
+    const d = json.data;
+
+    const u = d.discord_user;
+
+    document.getElementById("name").textContent =
+      u.global_name || u.username;
+
+    document.getElementById("username").textContent =
+      "@" + u.username;
+
+    document.getElementById("avatar").src =
+      `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png`;
+
+    const status = d.discord_status;
+
+    document.getElementById("statusText").textContent = status;
+    document.getElementById("dot").style.background = color(status);
+
+    const activity = d.activities.find(a => a.type !== 4);
+    const custom = d.activities.find(a => a.type === 4);
+
+    document.getElementById("popup").textContent =
+      activity ? formatActivity(activity)
+               : (custom?.state || "No activity");
+
+  } catch (e) {
+    document.getElementById("popup").textContent =
+      "Discord offline";
+  }
+}
+
+load();
+setInterval(load, 15000);
 </script>
 
 </body>
