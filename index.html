@@ -26,7 +26,11 @@ body {
 }
 
 /* BACKGROUND */
-#stars { position: fixed; inset: 0; z-index: 0; }
+#stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
 
 .star {
   position: absolute;
@@ -79,77 +83,72 @@ body {
 .wrapper {
   z-index: 2;
   display: flex;
-  gap: 16px;
+  gap: 26px;
   align-items: center;
 }
 
-/* PANEL */
+/* PANEL (BIGGER) */
 .panel {
-  background: rgba(255,0,50,0.08);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,0,50,0.10);
+  border: 1px solid rgba(255,255,255,0.10);
   backdrop-filter: blur(18px);
-  border-radius: 18px;
-  padding: 18px;
-  box-shadow: 0 0 30px rgba(255,0,60,0.15);
+  border-radius: 22px;
+  padding: 28px;   /* bigger */
+  box-shadow: 0 0 45px rgba(255,0,60,0.20);
   transition: 0.3s;
 }
 
 .panel:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 0 50px rgba(255,0,60,0.35);
+  transform: translateY(-6px);
+  box-shadow: 0 0 70px rgba(255,0,60,0.35);
 }
 
-/* PROFILE */
+/* PROFILE (BIGGER BOX) */
 .profile {
-  width: 300px;
+  width: 380px;   /* bigger */
   text-align: center;
 }
 
-.avatar-wrap {
-  position: relative;
-  display: inline-block;
-}
-
 .avatar {
-  width: 92px;
-  height: 92px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
   border: 2px solid rgba(255,0,60,0.7);
 }
 
 .name {
-  margin-top: 10px;
+  margin-top: 14px;
   font-family: "Syne";
   font-weight: 800;
+  font-size: 22px;
 }
 
 .username {
   opacity: 0.6;
-  font-size: 13px;
+  font-size: 15px;
 }
 
-/* 🔥 STATUS (NOW SHOWS ACTIVITY) */
 .status {
-  margin-top: 10px;
+  margin-top: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  font-size: 13px;
+  gap: 10px;
+  font-size: 14px;
 }
 
 .dot {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
 }
 
-/* SOCIALS */
+/* SOCIALS (BIGGER BOX) */
 .socials {
-  width: 260px;
+  width: 320px; /* bigger */
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
 }
 
 .socials a {
@@ -158,22 +157,17 @@ body {
   gap: 10px;
   text-decoration: none;
   color: white;
-  padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(255,0,60,0.1);
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: rgba(255,0,60,0.12);
   border: 1px solid rgba(255,255,255,0.08);
   transition: 0.25s;
+  font-size: 15px;
 }
 
 .socials a:hover {
-  transform: scale(1.04);
+  transform: scale(1.05);
   background: rgba(255,0,60,0.25);
-}
-
-.socials img {
-  width: 18px;
-  height: 18px;
-  filter: invert(1);
 }
 
 /* CURSOR TRAIL */
@@ -191,11 +185,16 @@ body {
 }
 
 @keyframes fadeOut {
-  to { opacity: 0; transform: translate(-50%, -50%) scale(0); }
+  to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
 }
 
 @media (max-width: 900px) {
-  .wrapper { flex-direction: column; }
+  .wrapper {
+    flex-direction: column;
+  }
 }
 </style>
 </head>
@@ -208,54 +207,27 @@ body {
 
 <div class="wrapper">
 
-  <!-- PROFILE -->
   <div class="panel profile">
-
-    <div class="avatar-wrap">
-      <img id="avatar" class="avatar" />
-    </div>
-
+    <img id="avatar" class="avatar" />
     <div class="name" id="name">Loading...</div>
     <div class="username" id="username"></div>
 
-    <!-- ✅ THIS NOW SHOWS ACTIVITY -->
     <div class="status">
       <div class="dot" id="dot"></div>
       <span id="activityText">Checking activity...</span>
     </div>
-
   </div>
 
-  <!-- SOCIALS -->
   <div class="panel socials">
-
-    <a href="https://www.youtube.com/@jittydagod52" target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/youtube.svg">
-      YouTube
-    </a>
-
-    <a href="https://steamcommunity.com/profiles/76561199209130468/" target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/steam.svg">
-      Steam
-    </a>
-
-    <a href="https://www.roblox.com/users/1338031913/profile" target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/roblox.svg">
-      Roblox
-    </a>
-
-    <a href="https://discord.gg/pnNVpGyB" target="_blank">
-      <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/discord.svg">
-      Discord
-    </a>
-
+    <a href="https://www.youtube.com/@jittydagod52" target="_blank">YouTube</a>
+    <a href="https://steamcommunity.com/profiles/76561199209130468/" target="_blank">Steam</a>
+    <a href="https://www.roblox.com/users/1338031913/profile" target="_blank">Roblox</a>
+    <a href="https://discord.gg/pnNVpGyB" target="_blank">Discord</a>
   </div>
 
 </div>
 
 <script>
-
-/* STARS */
 const stars = document.getElementById("stars");
 for (let i = 0; i < 140; i++) {
   const s = document.createElement("div");
@@ -266,21 +238,18 @@ for (let i = 0; i < 140; i++) {
   stars.appendChild(s);
 }
 
-/* RAIN */
 const rain = document.querySelector(".rain");
-
 function createRain(){
   const d = document.createElement("div");
   d.className = "drop";
   d.style.left = Math.random()*100 + "vw";
   d.style.height = (12 + Math.random()*28) + "px";
-  d.style.animationDuration = (0.4 + Math.random()*0.9) + "s";
+  d.style.animationDuration = (0.6 + Math.random()*0.9) + "s";
   rain.appendChild(d);
-  setTimeout(() => d.remove(), 2000);
+  setTimeout(() => d.remove(), 2500);
 }
-setInterval(createRain, 12);
+setInterval(createRain, 25);
 
-/* TRAIL */
 document.addEventListener("mousemove", (e) => {
   const d = document.createElement("div");
   d.className = "trail-dot";
@@ -302,18 +271,14 @@ function color(s){
   }[s] || "#747f8d";
 }
 
-function formatAllActivities(list) {
-  if (!list.length) return null;
-
-  return list.map(a => {
-    switch (a.type) {
-      case 0: return `🎮 Playing ${a.name}`;
-      case 1: return `🔴 Streaming ${a.name}`;
-      case 2: return `🎧 Listening to ${a.name}`;
-      case 3: return `📺 Watching ${a.name}`;
-      default: return a.name;
-    }
-  }).join(" • ");
+function formatActivity(a){
+  if (!a) return null;
+  if (a.type === 4) return `💬 ${a.state || "Custom Status"}`;
+  if (a.type === 0) return `🎮 Playing ${a.name}`;
+  if (a.type === 1) return `🔴 Streaming ${a.name}`;
+  if (a.type === 2) return `🎧 Listening to ${a.name}`;
+  if (a.type === 3) return `📺 Watching ${a.name}`;
+  return a.name || "Unknown activity";
 }
 
 async function load(){
@@ -321,40 +286,28 @@ async function load(){
     const res = await fetch(`https://api.lanyard.rest/v1/users/${ID}`);
     const json = await res.json();
     const d = json.data;
-
     const u = d.discord_user;
 
-    document.getElementById("name").textContent =
-      u.global_name || u.username;
-
-    document.getElementById("username").textContent =
-      "@" + u.username;
-
+    document.getElementById("name").textContent = u.global_name || u.username;
+    document.getElementById("username").textContent = "@" + u.username;
     document.getElementById("avatar").src =
       `https://cdn.discordapp.com/avatars/${u.id}/${u.avatar}.png`;
 
-    const status = d.discord_status;
-
-    document.getElementById("dot").style.background = color(status);
+    document.getElementById("dot").style.background = color(d.discord_status);
 
     const activities = d.activities || [];
-    const realActivities = activities.filter(a => a.type !== 4);
-    const custom = activities.find(a => a.type === 4);
-
-    const formatted = formatAllActivities(realActivities);
+    const formatted = activities.map(formatActivity).filter(Boolean).join(" • ");
 
     document.getElementById("activityText").textContent =
-      formatted || custom?.state || "No activity";
+      formatted || d.discord_status || "No activity";
 
   } catch (e) {
-    document.getElementById("activityText").textContent =
-      "Discord offline";
+    document.getElementById("activityText").textContent = "Discord offline";
   }
 }
 
 load();
-setInterval(load, 15000);
-
+setInterval(load, 10000);
 </script>
 
 </body>
