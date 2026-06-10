@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>JittyDaGod's Web</title>
+<title>Jitty's Web</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=DM+Sans:wght@300;400;600&display=swap" rel="stylesheet"/>
 
@@ -25,7 +25,8 @@ body {
   color: white;
 }
 
-/* ===================== BACKGROUND ===================== */
+/* ================= BACKGROUND ================= */
+
 #stars {
   position: fixed;
   inset: 0;
@@ -56,7 +57,33 @@ body {
   z-index: 0;
 }
 
-/* ===================== LAYOUT ===================== */
+/* ================= RAIN ================= */
+
+.rain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.drop {
+  position: absolute;
+  width: 1px;
+  height: 20px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,0,60,0.7));
+  animation: fall linear infinite;
+  opacity: 0.5;
+  filter: blur(0.4px);
+}
+
+@keyframes fall {
+  0% { transform: translateY(-10vh); opacity: 0; }
+  10% { opacity: 0.7; }
+  100% { transform: translateY(110vh); opacity: 0; }
+}
+
+/* ================= LAYOUT ================= */
+
 .wrapper {
   z-index: 2;
   display: flex;
@@ -64,7 +91,8 @@ body {
   align-items: center;
 }
 
-/* ===================== PANEL ===================== */
+/* ================= PANEL ================= */
+
 .panel {
   background: rgba(255,0,50,0.08);
   border: 1px solid rgba(255,255,255,0.08);
@@ -80,7 +108,8 @@ body {
   box-shadow: 0 0 50px rgba(255,0,60,0.35);
 }
 
-/* ===================== PROFILE ===================== */
+/* ================= PROFILE ================= */
+
 .profile {
   width: 300px;
   text-align: center;
@@ -146,7 +175,8 @@ body {
   border-radius: 50%;
 }
 
-/* ===================== SOCIALS ===================== */
+/* ================= SOCIALS ================= */
+
 .socials {
   width: 260px;
   display: flex;
@@ -178,7 +208,8 @@ body {
   filter: invert(1);
 }
 
-/* ===================== CURSOR TRAIL ===================== */
+/* ================= CURSOR TRAIL ================= */
+
 .trail-dot {
   position: fixed;
   width: 8px;
@@ -212,6 +243,7 @@ body {
 
 <div id="stars"></div>
 <div class="nebula"></div>
+<div class="rain"></div>
 
 <div class="wrapper">
 
@@ -230,6 +262,7 @@ body {
       <div class="dot" id="dot"></div>
       <span id="statusText">Checking...</span>
     </div>
+
   </div>
 
   <!-- SOCIALS -->
@@ -260,7 +293,7 @@ body {
 </div>
 
 <script>
-/* ===================== STARS ===================== */
+/* ================= STARS ================= */
 const stars = document.getElementById("stars");
 
 for (let i = 0; i < 140; i++) {
@@ -272,7 +305,26 @@ for (let i = 0; i < 140; i++) {
   stars.appendChild(s);
 }
 
-/* ===================== CURSOR TRAIL ===================== */
+/* ================= HEAVY RAIN ================= */
+const rain = document.querySelector(".rain");
+
+function createRain(){
+  const d = document.createElement("div");
+  d.className = "drop";
+
+  d.style.left = Math.random()*100 + "vw";
+  d.style.height = (12 + Math.random()*28) + "px";
+  d.style.animationDuration = (0.4 + Math.random()*0.9) + "s";
+  d.style.opacity = 0.2 + Math.random()*0.7;
+
+  rain.appendChild(d);
+
+  setTimeout(() => d.remove(), 2000);
+}
+
+setInterval(createRain, 12);
+
+/* ================= CURSOR TRAIL ================= */
 document.addEventListener("mousemove", (e) => {
   const d = document.createElement("div");
   d.className = "trail-dot";
@@ -282,7 +334,7 @@ document.addEventListener("mousemove", (e) => {
   setTimeout(() => d.remove(), 800);
 });
 
-/* ===================== DISCORD ===================== */
+/* ================= DISCORD ================= */
 const ID = "1138567381887746159";
 
 function color(s){
