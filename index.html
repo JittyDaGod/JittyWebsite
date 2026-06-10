@@ -25,13 +25,8 @@ body {
   color: white;
 }
 
-/* ================= BACKGROUND ================= */
-
-#stars {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-}
+/* BACKGROUND */
+#stars { position: fixed; inset: 0; z-index: 0; }
 
 .star {
   position: absolute;
@@ -57,8 +52,7 @@ body {
   z-index: 0;
 }
 
-/* ================= RAIN ================= */
-
+/* RAIN */
 .rain {
   position: fixed;
   inset: 0;
@@ -73,7 +67,6 @@ body {
   background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,0,60,0.7));
   animation: fall linear infinite;
   opacity: 0.5;
-  filter: blur(0.4px);
 }
 
 @keyframes fall {
@@ -82,8 +75,7 @@ body {
   100% { transform: translateY(110vh); opacity: 0; }
 }
 
-/* ================= LAYOUT ================= */
-
+/* LAYOUT */
 .wrapper {
   z-index: 2;
   display: flex;
@@ -91,8 +83,7 @@ body {
   align-items: center;
 }
 
-/* ================= PANEL ================= */
-
+/* PANEL */
 .panel {
   background: rgba(255,0,50,0.08);
   border: 1px solid rgba(255,255,255,0.08);
@@ -108,8 +99,7 @@ body {
   box-shadow: 0 0 50px rgba(255,0,60,0.35);
 }
 
-/* ================= PROFILE ================= */
-
+/* PROFILE */
 .profile {
   width: 300px;
   text-align: center;
@@ -127,28 +117,6 @@ body {
   border: 2px solid rgba(255,0,60,0.7);
 }
 
-/* hover popup ABOVE */
-.popup {
-  position: absolute;
-  bottom: 115%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 220px;
-  padding: 10px 14px;
-  border-radius: 12px;
-  font-size: 12px;
-  background: rgba(0,0,0,0.85);
-  border: 1px solid rgba(255,0,60,0.4);
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.25s;
-}
-
-.avatar-wrap:hover .popup {
-  opacity: 1;
-  transform: translateX(-50%) translateY(-6px);
-}
-
 .name {
   margin-top: 10px;
   font-family: "Syne";
@@ -160,12 +128,13 @@ body {
   font-size: 13px;
 }
 
+/* 🔥 STATUS (NOW SHOWS ACTIVITY) */
 .status {
   margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 13px;
 }
 
@@ -175,8 +144,7 @@ body {
   border-radius: 50%;
 }
 
-/* ================= SOCIALS ================= */
-
+/* SOCIALS */
 .socials {
   width: 260px;
   display: flex;
@@ -208,8 +176,7 @@ body {
   filter: invert(1);
 }
 
-/* ================= CURSOR TRAIL ================= */
-
+/* CURSOR TRAIL */
 .trail-dot {
   position: fixed;
   width: 8px;
@@ -224,17 +191,11 @@ body {
 }
 
 @keyframes fadeOut {
-  to {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0);
-  }
+  to { opacity: 0; transform: translate(-50%, -50%) scale(0); }
 }
 
-/* MOBILE */
 @media (max-width: 900px) {
-  .wrapper {
-    flex-direction: column;
-  }
+  .wrapper { flex-direction: column; }
 }
 </style>
 </head>
@@ -252,15 +213,15 @@ body {
 
     <div class="avatar-wrap">
       <img id="avatar" class="avatar" />
-      <div class="popup" id="popup">Loading activity...</div>
     </div>
 
     <div class="name" id="name">Loading...</div>
     <div class="username" id="username"></div>
 
+    <!-- ✅ THIS NOW SHOWS ACTIVITY -->
     <div class="status">
       <div class="dot" id="dot"></div>
-      <span id="statusText">Checking...</span>
+      <span id="activityText">Checking activity...</span>
     </div>
 
   </div>
@@ -293,9 +254,9 @@ body {
 </div>
 
 <script>
-/* ================= STARS ================= */
-const stars = document.getElementById("stars");
 
+/* STARS */
+const stars = document.getElementById("stars");
 for (let i = 0; i < 140; i++) {
   const s = document.createElement("div");
   s.className = "star";
@@ -305,26 +266,21 @@ for (let i = 0; i < 140; i++) {
   stars.appendChild(s);
 }
 
-/* ================= RAIN ================= */
+/* RAIN */
 const rain = document.querySelector(".rain");
 
 function createRain(){
   const d = document.createElement("div");
   d.className = "drop";
-
   d.style.left = Math.random()*100 + "vw";
   d.style.height = (12 + Math.random()*28) + "px";
   d.style.animationDuration = (0.4 + Math.random()*0.9) + "s";
-  d.style.opacity = 0.2 + Math.random()*0.7;
-
   rain.appendChild(d);
-
   setTimeout(() => d.remove(), 2000);
 }
-
 setInterval(createRain, 12);
 
-/* ================= CURSOR TRAIL ================= */
+/* TRAIL */
 document.addEventListener("mousemove", (e) => {
   const d = document.createElement("div");
   d.className = "trail-dot";
@@ -334,7 +290,7 @@ document.addEventListener("mousemove", (e) => {
   setTimeout(() => d.remove(), 800);
 });
 
-/* ================= DISCORD ================= */
+/* DISCORD */
 const ID = "1138567381887746159";
 
 function color(s){
@@ -346,7 +302,6 @@ function color(s){
   }[s] || "#747f8d";
 }
 
-/* ✅ FIXED: show ALL activities */
 function formatAllActivities(list) {
   if (!list.length) return null;
 
@@ -380,7 +335,6 @@ async function load(){
 
     const status = d.discord_status;
 
-    document.getElementById("statusText").textContent = status;
     document.getElementById("dot").style.background = color(status);
 
     const activities = d.activities || [];
@@ -389,17 +343,18 @@ async function load(){
 
     const formatted = formatAllActivities(realActivities);
 
-    document.getElementById("popup").textContent =
+    document.getElementById("activityText").textContent =
       formatted || custom?.state || "No activity";
 
   } catch (e) {
-    document.getElementById("popup").textContent =
+    document.getElementById("activityText").textContent =
       "Discord offline";
   }
 }
 
 load();
 setInterval(load, 15000);
+
 </script>
 
 </body>
