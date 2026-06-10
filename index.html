@@ -305,7 +305,7 @@ for (let i = 0; i < 140; i++) {
   stars.appendChild(s);
 }
 
-/* ================= HEAVY RAIN ================= */
+/* ================= RAIN ================= */
 const rain = document.querySelector(".rain");
 
 function createRain(){
@@ -346,17 +346,19 @@ function color(s){
   }[s] || "#747f8d";
 }
 
-function formatActivity(a){
-  if (!a) return "No activity";
+/* ✅ FIXED: show ALL activities */
+function formatAllActivities(list) {
+  if (!list.length) return null;
 
-  switch(a.type){
-    case 0: return `🎮 Playing ${a.name}`;
-    case 1: return `🔴 Streaming ${a.name}`;
-    case 2: return `🎧 Listening to ${a.name}`;
-    case 3: return `📺 Watching ${a.name}`;
-    case 4: return a.state || "✨ Custom Status";
-    default: return a.name;
-  }
+  return list.map(a => {
+    switch (a.type) {
+      case 0: return `🎮 Playing ${a.name}`;
+      case 1: return `🔴 Streaming ${a.name}`;
+      case 2: return `🎧 Listening to ${a.name}`;
+      case 3: return `📺 Watching ${a.name}`;
+      default: return a.name;
+    }
+  }).join(" • ");
 }
 
 async function load(){
@@ -381,12 +383,14 @@ async function load(){
     document.getElementById("statusText").textContent = status;
     document.getElementById("dot").style.background = color(status);
 
-    const activity = d.activities.find(a => a.type !== 4);
-    const custom = d.activities.find(a => a.type === 4);
+    const activities = d.activities || [];
+    const realActivities = activities.filter(a => a.type !== 4);
+    const custom = activities.find(a => a.type === 4);
+
+    const formatted = formatAllActivities(realActivities);
 
     document.getElementById("popup").textContent =
-      activity ? formatActivity(activity)
-               : (custom?.state || "No activity");
+      formatted || custom?.state || "No activity";
 
   } catch (e) {
     document.getElementById("popup").textContent =
